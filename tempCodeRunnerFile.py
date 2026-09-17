@@ -1,0 +1,1 @@
+r"C:\Users\USER\OneDrive\Documents\GitHub\student grade management system\icon.ico"

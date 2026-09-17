@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from Place_holder import PLH
+from new import new_student
 
 root = tk.Tk()
 title = root.title("SMng")
@@ -21,7 +22,7 @@ PLH(frame1, 'Student Name', search_Name)
 button1 = ttk.Button(frame1, text='All Students')
 button1.pack(side='left', pady=10, padx=10)
 
-button2 = ttk.Button(frame1, text='Add New Student' )
+button2 = ttk.Button(frame1, text='Add New Student', command=new_student )
 button2.pack(side='right', pady=10, padx=10)
 
 button3 = ttk.Button(frame1, text='Search' )

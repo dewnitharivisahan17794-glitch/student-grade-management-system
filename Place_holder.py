@@ -13,7 +13,8 @@ def PLH(parent, text, var):
     style.map(
         "Normal.TEntry",
         foreground=[("!disabled", "black")])
-
+    
+    
     entry=ttk.Entry(parent, textvariable=var, style="Placeholder.TEntry", width=150)
     entry.pack(padx=10, pady=10)
     entry.insert(0,text)
