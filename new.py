@@ -10,9 +10,9 @@ def new_student():
 
     name = tk.StringVar()
     student_id = tk.StringVar()
-    maths = tk.IntVar(value="")
-    english = tk.IntVar(value="")
-    programming = tk.IntVar(value="")
+    maths = tk.StringVar()
+    english = tk.StringVar()
+    programming = tk.StringVar()
 
     lable2 = ttk.Label(sub, text="", font = "arial 8 italic")
     lable2.pack()
@@ -29,6 +29,12 @@ def new_student():
     lable3 = ttk.Label(frame2, text="Use 0 if the student did not participate.")
     lable3.pack()
 
+    lable4 = ttk.Label(frame2, text="")
+    lable4.pack()
+
+    lable5 = ttk.Label(frame2, text="")
+    lable5.pack()
+
     def massage():
         name_value = name.get().strip()
         id_value = student_id.get().strip()
@@ -38,8 +44,40 @@ def new_student():
                 text="Please fill in all required fields.",
                 foreground="red"
             )
+            
+
         else:
             lable2.config(text="")
 
+        try:
+            mathmatics =int(maths.get())
+            English = int(english.get())
+            Programming = int(programming.get())
+            subject = [mathmatics, English, Programming]
+
+            for i in subject:
+                if i<0 or i>100:
+                    lable5.config(text="Please Enter Marks Between 0 and 100")
+                    return
+                
+            lable5.config(text="")   
+            lable4.config(text="")  
+
+        except ValueError as E:
+            lable4.config(text= "Please Enter Integer Number")
+
+
     button1 = ttk.Button(frame2, text="confirm", command=massage )
-    button1.pack(pady=20)
+    button1.pack(side="left", padx=20, pady=20)
+
+    def clear():
+        name.set("")
+        student_id.set("")
+        maths.set("")
+        english.set("")
+        programming.set("")
+        lable4.config(text="")
+        lable5.config(text="")
+
+    button2 = ttk.Button(frame2, text="Clear", command=clear)
+    button2.pack(side='right', padx=20, pady=20)
