@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-from Place_holder import PLH
+from Bundle.Place_holder import PLH
 
 def new_student():
     sub = tk.Toplevel()

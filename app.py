@@ -1,12 +1,12 @@
 import tkinter as tk
 from tkinter import ttk
-from Place_holder import PLH
-from new import new_student
+from Bundle.Place_holder import PLH
+from Bundle.new import new_student
 
 root = tk.Tk()
 title = root.title("SMng")
-icon = root.iconbitmap(r"C:\Users\USER\OneDrive\Documents\GitHub\student grade management system\icon.ico")
-geometry = root.geometry(f'500x500')
+icon = root.iconbitmap(r"C:\Users\USER\OneDrive\Documents\GitHub\student grade management system\Bundle\icon.ico")
+geometry = root.geometry(f'700x700')
 search_Name = tk.StringVar()
 search_ID = tk.StringVar()
 lable = ttk.Label(root, text = "STUDENT MANAGER", foreground="Red", font="arial 30 bold ")
@@ -19,7 +19,27 @@ frame1.pack_propagate(False)
 PLH(frame1, "Student_ID", search_ID)
 PLH(frame1, 'Student Name', search_Name)
 
-button1 = ttk.Button(frame1, text='All Students')
+def view_all():
+    canves = tk.Canvas(root, width=650, height=400, background='White')
+    canves.pack(after=frame1)
+    table = ttk.Treeview(canves, columns=('id', 'name', 'maths', 'english', 'programming', 'avg', 'grade'), show='headings')
+    table.pack()
+    table.heading('id',text = "ID")
+    table.heading('name',text = "Name")
+    table.heading('maths',text = "Maths")
+    table.heading('english',text = "English")
+    table.heading('programming',text = "Coding")
+    table.heading('avg',text = "Average")
+    table.heading('grade', text="Grade")
+
+    table.column('id', width=60,stretch = False)
+    table.column('english', width=60,stretch = False)
+    table.column('maths', width=60,stretch = False)
+    table.column('programming', width=60,stretch = False)
+    table.column('avg', width=60,stretch = False)
+    table.column('grade', width=60,stretch = False)
+
+button1 = ttk.Button(frame1, text='All Students', command=view_all)
 button1.pack(side='left', pady=10, padx=10)
 
 button2 = ttk.Button(frame1, text='Add New Student', command=new_student )

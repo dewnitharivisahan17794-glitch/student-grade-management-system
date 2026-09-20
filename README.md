@@ -53,7 +53,7 @@ The application should provide the following buttons:
 
 Use a `ttk.Treeview` to display:
 
-| ID | Name | Age | Maths | English | Programming | Average | Grade |
+| ID | Name  |  Maths | English | Programming | Average | Grade |
 |---|---|---|---|---|---|---|---|
 
 ### 🎓 Grade System
