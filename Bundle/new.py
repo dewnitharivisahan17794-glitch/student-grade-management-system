@@ -1,12 +1,15 @@
 import tkinter as tk
 from tkinter import ttk
 from Bundle.Place_holder import PLH
+import json
+from pathlib import Path
+from tkinter import messagebox
 
 def new_student():
     sub = tk.Toplevel()
     sub.title('Add Student')
     sub.geometry(f'400x500')
-    sub.iconbitmap(r"C:\Users\USER\OneDrive\Documents\GitHub\student grade management system\icon.ico")
+    sub.iconbitmap(r"C:\Users\USER\OneDrive\Documents\GitHub\student grade management system\Bundle\icon.ico")
 
     name = tk.StringVar()
     student_id = tk.StringVar()
@@ -50,10 +53,10 @@ def new_student():
             lable2.config(text="")
 
         try:
-            mathmatics =int(maths.get())
+            Mathmatics =int(maths.get())
             English = int(english.get())
             Programming = int(programming.get())
-            subject = [mathmatics, English, Programming]
+            subject = [Mathmatics, English, Programming]
 
             for i in subject:
                 if i<0 or i>100:
@@ -65,7 +68,39 @@ def new_student():
 
         except ValueError as E:
             lable4.config(text= "Please Enter Integer Number")
+            return
+#
+        folder = Path("stdata")
+        folder.mkdir(exist_ok= True)
+#
+        id = student_id.get()
+        Name = name.get()
+        total = Mathmatics + Programming + English
+        avg = round(total/3 , 2) 
 
+
+        if avg >= 75 and avg <= 100 :
+            Grade = "A"
+        elif avg >=65 and avg <75 :
+            Grade = "B"
+        elif avg >= 55 and avg < 65 :
+            Grade = "C"
+        elif avg >= 45 and avg < 35 :
+            Grade = "S"
+        else:
+            Grade = "F"
+
+        file_Path = folder/ f"{id}.json"
+
+        student_Data = {"Name" : Name, "ID" : id, "Maths" : Mathmatics, "Coding" : Programming, "English" : English, "Average" : avg , "Grade" : Grade}
+
+        with open (file_Path, "w") as file:
+            json.dump(student_Data, file)
+
+        result = messagebox.askokcancel("Are you sure?", "Sure?")
+
+        if result :
+            sub.destroy()
 
     button1 = ttk.Button(frame2, text="confirm", command=massage )
     button1.pack(side="left", padx=20, pady=20)

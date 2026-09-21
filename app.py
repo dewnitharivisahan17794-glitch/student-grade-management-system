@@ -2,6 +2,8 @@ import tkinter as tk
 from tkinter import ttk
 from Bundle.Place_holder import PLH
 from Bundle.new import new_student
+from pathlib import Path
+import json
 
 root = tk.Tk()
 title = root.title("SMng")
@@ -22,7 +24,13 @@ PLH(frame1, 'Student Name', search_Name)
 def view_all():
     canves = tk.Canvas(root, width=650, height=400, background='White')
     canves.pack(after=frame1)
-    table = ttk.Treeview(canves, columns=('id', 'name', 'maths', 'english', 'programming', 'avg', 'grade'), show='headings')
+    frame3 = ttk.Frame(canves)
+    frame3.pack()
+    scroll_bar = ttk.Scrollbar(frame3, orient= 'vertical', command=canves.yview)
+    scroll_bar.pack(side='right', fill='y')
+    frame3.bind('<Configure>', lambda e: canves.configure(scrollregion=canves.bbox("all")))
+
+    table = ttk.Treeview(frame3, columns=('id', 'name', 'maths', 'english', 'programming', 'avg', 'grade'), show='headings')
     table.pack()
     table.heading('id',text = "ID")
     table.heading('name',text = "Name")
@@ -38,6 +46,22 @@ def view_all():
     table.column('programming', width=60,stretch = False)
     table.column('avg', width=60,stretch = False)
     table.column('grade', width=60,stretch = False)
+
+    for file_path in Path("stdata").glob("*.json"):
+        with open(file_path, "r") as file:
+            data = json.load(file)
+
+            table.insert("", 
+                         'end', 
+                         values=(
+                             data.get("ID", ""),
+                            data.get("Name", ""), 
+                            data.get("Maths", ""), 
+                            data.get("English", ""), 
+                            data.get("Coding", ""), 
+                            data.get("Average", ""), 
+                            data.get("Grade", "")))
+            
 
 button1 = ttk.Button(frame1, text='All Students', command=view_all)
 button1.pack(side='left', pady=10, padx=10)
