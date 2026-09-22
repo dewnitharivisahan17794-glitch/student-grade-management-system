@@ -4,6 +4,7 @@ from Bundle.Place_holder import PLH
 from Bundle.new import new_student
 from pathlib import Path
 import json
+import os
 
 root = tk.Tk()
 title = root.title("SMng")
@@ -14,24 +15,34 @@ search_ID = tk.StringVar()
 lable = ttk.Label(root, text = "STUDENT MANAGER", foreground="Red", font="arial 30 bold ")
 lable.pack()
 
-frame1 = ttk.Frame(root, width=400, height=150, relief='groove') 
+frame1 = ttk.Frame(root, width=400, height=170, relief='groove') 
 frame1.pack(pady=20)
 frame1.pack_propagate(False)
 
-PLH(frame1, "Student_ID", search_ID)
-PLH(frame1, 'Student Name', search_Name)
-
+k = PLH(frame1, "Student_ID (A1234)", search_ID)
+lable1 = ttk.Label(frame1, text="", font="Arial 8 italic", foreground='#800000')
+lable1.pack()
+p = PLH(frame1, 'Student Name (M.Jhon Smith)', search_Name)
+lable2 = ttk.Label(frame1, text="", font="Arial 8 italic", foreground='#800000')
+lable2.pack()
 def view_all():
-    canves = tk.Canvas(root, width=650, height=400, background='White')
-    canves.pack(after=frame1)
-    frame3 = ttk.Frame(canves)
-    frame3.pack()
-    scroll_bar = ttk.Scrollbar(frame3, orient= 'vertical', command=canves.yview)
-    scroll_bar.pack(side='right', fill='y')
-    frame3.bind('<Configure>', lambda e: canves.configure(scrollregion=canves.bbox("all")))
-
+   
+    frame3 = ttk.Frame(root)
+    frame3.pack(after=frame1)
     table = ttk.Treeview(frame3, columns=('id', 'name', 'maths', 'english', 'programming', 'avg', 'grade'), show='headings')
-    table.pack()
+
+    scroll_bar = ttk.Scrollbar(frame3, orient='vertical', command=table.yview)
+
+    table.configure(yscrollcommand=scroll_bar.set)
+
+    button4 = ttk.Button(frame3, text="Close")
+    button4.pack(pady=10)
+
+    table.pack(side='left', fill='both', expand=True)
+    scroll_bar.pack(side='right', fill='y')
+
+    
+
     table.heading('id',text = "ID")
     table.heading('name',text = "Name")
     table.heading('maths',text = "Maths")
@@ -61,15 +72,55 @@ def view_all():
                             data.get("Coding", ""), 
                             data.get("Average", ""), 
                             data.get("Grade", "")))
-            
+
+
+def search():
+    lable1.configure(text="")
+    lable2.configure(text="")
+
+    id = search_ID.get()
+    path = fr"C:\Users\USER\OneDrive\Documents\GitHub\student grade management system\stdata\{id}.json"
+    exists = os.path.exists(path)
+    if(exists):
+        with open(path, "r") as file:
+            data = json.load(file)
+            name = data.get("Name", "")
+        if name != search_Name.get():
+            lable2.configure(text="*Student ID or Student Name doesn't match.")
+        else:
+            frame2 = ttk.Frame(root, width=400, height=200, relief='groove')
+            frame2.pack(pady=20, after=frame1)
+            frame2.pack_propagate(False)
+            letterbox = ttk.Label(frame2, text="", font="Arial 9", background="White" )
+            letterbox.pack(padx=20, pady=10, fill="both")
+            maths = data.get("Maths", "") 
+            english = data.get("English", "") 
+            coding = data.get("Coding", "") 
+            avg = data.get("Average", "") 
+            grade = data.get("Grade", "")
+            letterbox.configure(text=f"ID = {id}\nName = {name}\nMathmatics = {maths}\nEnglish = {english}\nProgramming = {coding}\nAverage = {avg}\nGrade = {grade}\n")
+            edit = ttk.Button(frame2, text="Edit")
+            edit.pack(side='left',padx = 10)
+            def close():
+                frame2.destroy()
+                search_Name.set("")
+                search_ID.set("")
+                
+            close = ttk.Button(frame2, text = "Close", command=close)
+            close.pack(side= 'right', padx=10)
+    else:
+        lable1.configure(text="*Student ID doesn't Exists")
+
+
+
 
 button1 = ttk.Button(frame1, text='All Students', command=view_all)
-button1.pack(side='left', pady=10, padx=10)
+button1.pack(side='left', pady=10, padx=20)
+
+button3 = ttk.Button(frame1, text='Search' , command=search)
+button3.pack(side='left', pady=10, padx=20)
 
 button2 = ttk.Button(frame1, text='Add New Student', command=new_student )
-button2.pack(side='right', pady=10, padx=10)
-
-button3 = ttk.Button(frame1, text='Search' )
-button3.pack(side='bottom', pady=20, padx=10)
+button2.pack(side='left', pady=10, padx=20)
 
 root.mainloop()
