@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from Bundle.Place_holder import PLH
 from Bundle.new import new_student
+from Bundle.edit import  Edit
 from pathlib import Path
 import json
 import os
@@ -35,7 +36,7 @@ def view_all():
 
     table.configure(yscrollcommand=scroll_bar.set)
 
-    button4 = ttk.Button(frame3, text="Close")
+    button4 = ttk.Button(frame3, text="Close", command=lambda: frame3.destroy())
     button4.pack(pady=10)
 
     table.pack(side='left', fill='both', expand=True)
@@ -99,7 +100,7 @@ def search():
             avg = data.get("Average", "") 
             grade = data.get("Grade", "")
             letterbox.configure(text=f"ID = {id}\nName = {name}\nMathmatics = {maths}\nEnglish = {english}\nProgramming = {coding}\nAverage = {avg}\nGrade = {grade}\n")
-            edit = ttk.Button(frame2, text="Edit")
+            edit = ttk.Button(frame2, text="Edit", command=lambda:Edit(id))
             edit.pack(side='left',padx = 10)
             def close():
                 frame2.destroy()
