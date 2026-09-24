@@ -4,6 +4,7 @@ from Bundle.Place_holder import PLH
 import json
 from pathlib import Path
 from tkinter import messagebox
+import os
 
 def new_student():
     sub = tk.Toplevel()
@@ -25,6 +26,8 @@ def new_student():
     lable1.pack()
     PLH(frame2, "Name (M.Jhon Smith)", name )
     PLH(frame2, "Student_ID (A1234)", student_id )
+    lable6 = ttk.Label(frame2, text="", font="Arial 8 italic", foreground="#800000")
+    lable6.pack()
     PLH(frame2, "Mathmatics", maths )
     PLH(frame2, "English", english )
     PLH(frame2, "Programming", programming )
@@ -91,16 +94,23 @@ def new_student():
             Grade = "F"
 
         file_Path = folder/ f"{id}.json"
+        if os.path.exists(file_Path):
+            lable6.configure(text="*This ID already exists")
+            return
 
-        student_Data = {"Name" : Name, "ID" : id, "Maths" : Mathmatics, "Coding" : Programming, "English" : English, "Average" : avg , "Grade" : Grade}
+        else:
 
-        with open (file_Path, "w") as file:
-            json.dump(student_Data, file)
+            student_Data = {"Name" : Name, "ID" : id, "Maths" : Mathmatics, "Coding" : Programming, "English" : English, "Average" : avg , "Grade" : Grade}
 
-        result = messagebox.askokcancel("Are you sure?", "Sure?")
+            with open (file_Path, "w") as file:
+                json.dump(student_Data, file)
 
-        if result :
-            sub.destroy()
+            result = messagebox.askokcancel("Are you sure?", "Sure?")
+
+            if result :
+                sub.destroy()
+            else :
+                os.remove(file_Path)
 
     button1 = ttk.Button(frame2, text="confirm", command=massage )
     button1.pack(side="left", padx=20, pady=20)
