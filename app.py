@@ -80,7 +80,7 @@ def search():
     lable2.configure(text="")
 
     id = search_ID.get()
-    path =Path("stdata")
+    path =Path(f"stdata/{id}.json")
     exists = os.path.exists(path)
     if(exists):
         with open(path, "r") as file:
