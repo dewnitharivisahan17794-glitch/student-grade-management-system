@@ -80,7 +80,7 @@ def search():
     lable2.configure(text="")
 
     id = search_ID.get()
-    path = fr"C:\Users\USER\OneDrive\Documents\GitHub\student grade management system\stdata\{id}.json"
+    path =Path("stdata")
     exists = os.path.exists(path)
     if(exists):
         with open(path, "r") as file:
