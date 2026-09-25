@@ -10,7 +10,7 @@ def new_student():
     sub = tk.Toplevel()
     sub.title('Add Student')
     sub.geometry(f'400x500')
-    sub.iconbitmap(r"C:\Users\USER\OneDrive\Documents\GitHub\student grade management system\Bundle\icon.ico")
+    #sub.iconbitmap(r"C:\Users\USER\OneDrive\Documents\GitHub\student grade management system\Bundle\icon.ico")
 
     name = tk.StringVar()
     student_id = tk.StringVar()

@@ -8,7 +8,7 @@ def Edit(id):
     sub = tk.Toplevel()
     sub.title('Edit')
     sub.geometry(f'400x500')
-    sub.iconbitmap(r"C:\Users\USER\OneDrive\Documents\GitHub\student grade management system\Bundle\icon.ico")
+    #sub.iconbitmap(r"C:\Users\USER\OneDrive\Documents\GitHub\student grade management system\Bundle\icon.ico")
 
     name = tk.StringVar()
     student_id = tk.StringVar()
@@ -29,7 +29,7 @@ def Edit(id):
     lable2.pack()
     frame2 = ttk.Frame(sub, width=400, height=500)
     frame2.pack()
-    lable1 = ttk.Label(frame2, text="New Student", font="arial 20 bold")
+    lable1 = ttk.Label(frame2, text="Student's Data", font="arial 20 bold")
     lable1.pack()
 
     entry1=ttk.Entry(frame2, textvariable=name, width=150)

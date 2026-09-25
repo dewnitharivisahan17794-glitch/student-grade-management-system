@@ -9,7 +9,7 @@ import os
 
 root = tk.Tk()
 title = root.title("SMng")
-icon = root.iconbitmap(r"C:\Users\USER\OneDrive\Documents\GitHub\student grade management system\Bundle\icon.ico")
+#icon = root.iconbitmap(r"C:\Users\USER\OneDrive\Documents\GitHub\student grade management system\Bundle\icon.ico")
 geometry = root.geometry(f'700x700')
 search_Name = tk.StringVar()
 search_ID = tk.StringVar()
