@@ -3,6 +3,7 @@ from tkinter import ttk
 import json
 import os
 from tkinter import messagebox , simpledialog
+from pathlib import Path
 
 def Edit(id):
     sub = tk.Toplevel()
@@ -17,8 +18,8 @@ def Edit(id):
     programming = tk.StringVar()
 
     
-
-    with open(fr"C:\Users\USER\OneDrive\Documents\GitHub\student grade management system\stdata\{id}.json", 'r') as file:
+    path = Path("stdata/{id}.json")
+    with open(path, 'r') as file:
         data = json.load(file)
         p = data.get("Name", "")
         q= data.get("ID", "")
@@ -107,11 +108,10 @@ def Edit(id):
         else:
             Grade = "F"
 
-        file_Path = fr"C:\Users\USER\OneDrive\Documents\GitHub\student grade management system\stdata\{id}.json"
 
         student_Data = {"Name" : Name, "ID" : id, "Maths" : Mathmatics, "Coding" : Programming, "English" : English, "Average" : avg , "Grade" : Grade}
 
-        with open (file_Path, "w") as file:
+        with open (path, "w") as file:
             json.dump(student_Data, file)
 
         result = messagebox.askokcancel("Are you sure?", "Sure?")
