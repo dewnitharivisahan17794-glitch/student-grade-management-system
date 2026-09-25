@@ -70,7 +70,6 @@ Use a `ttk.Treeview` to display:
 
 - Student ID must be unique.
 - Marks must be between `0` and `100`.
-- Age must be a valid number.
 - Required fields should not be empty.
 - Appropriate error messages should be displayed for invalid input.
 - Confirmation should be requested before deleting a student.
@@ -93,8 +92,6 @@ After completing the basic version, add:
 - Load saved data when the application starts.
 - Automatically save data when the application closes.
 - Search students by name.
-- Display the highest-performing student.
-- Display the class average.
 - Add a scrollbar to the `Treeview`.
 
 ## 🎯 Learning Goals
