@@ -155,7 +155,7 @@ def Edit(id):
             result2 = messagebox.askokcancel("Are you sure?", "Sure?", parent=sub)
             if result2:
 
-                file_Path = fr"C:\Users\USER\OneDrive\Documents\GitHub\student grade management system\stdata\{id}.json"
+                file_Path =path
                 os.remove(file_Path)
                 sub.destroy()
 
